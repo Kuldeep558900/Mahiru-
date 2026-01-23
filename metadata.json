@@ -1,0 +1,7 @@
+{
+  "name": "Mahiru AI - Fluent Hindi Anime Assistant",
+  "description": "An interactive anime AI named Mahiru with fluent Hindi speaking capabilities and real-time voice interaction powered by Gemini.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}

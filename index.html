@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mahiru AI - Dark Angelic Assistant</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Noto+Sans+Devanagari:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-pink: #ff4d94;
+      --deep-bg: #0a0a0c;
+    }
+    body {
+      font-family: 'Quicksand', 'Noto Sans Devanagari', sans-serif;
+      background: var(--deep-bg);
+      background: radial-gradient(circle at center, #1a1a2e 0%, #0a0a0c 100%);
+      overflow: hidden;
+      margin: 0;
+      height: 100vh;
+      color: #fff;
+    }
+    .anime-glow {
+      box-shadow: 0 0 40px rgba(255, 77, 148, 0.4);
+    }
+    .glass-panel {
+      background: rgba(20, 20, 25, 0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    /* Glowing Sakura Petal Animation */
+    .sakura {
+      position: absolute;
+      background-color: #ffb7c5;
+      border-radius: 100% 0 100% 0;
+      opacity: 0.6;
+      pointer-events: none;
+      z-index: 1;
+      box-shadow: 0 0 10px rgba(255, 183, 197, 0.8);
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-10vh) translateX(0) rotate(0deg);
+        opacity: 0;
+      }
+      10% { opacity: 0.8; }
+      90% { opacity: 0.8; }
+      100% {
+        transform: translateY(110vh) translateX(120px) rotate(720deg);
+        opacity: 0;
+      }
+    }
+
+    .floating {
+      animation: floating 5s ease-in-out infinite;
+    }
+
+    @keyframes floating {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0px); }
+    }
+
+    .glow-text {
+      text-shadow: 0 0 15px rgba(255, 77, 148, 0.8);
+    }
+  </style>
+  <script type="importmap">
+  {
+    "imports": {
+      "react/": "https://esm.sh/react@^19.2.3/",
+      "react": "https://esm.sh/react@^19.2.3",
+      "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+      "@google/genai": "https://esm.sh/@google/genai@^1.38.0"
+    }
+  }
+  </script>
+</head>
+<body>
+  <div id="root"></div>
+  <script>
+    function createPetals() {
+      const container = document.body;
+      for (let i = 0; i < 30; i++) {
+        const petal = document.createElement('div');
+        petal.className = 'sakura';
+        const size = Math.random() * 8 + 4 + 'px';
+        petal.style.width = size;
+        petal.style.height = size;
+        petal.style.left = Math.random() * 100 + 'vw';
+        petal.style.animationDuration = Math.random() * 7 + 5 + 's';
+        petal.style.animationDelay = Math.random() * 5 + 's';
+        container.appendChild(petal);
+      }
+    }
+    createPetals();
+  </script>
+</body>
+</html>
