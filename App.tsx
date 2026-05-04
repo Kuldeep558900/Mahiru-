@@ -4,8 +4,8 @@ import { GoogleGenAI, Modality } from '@google/genai';
 import { ConnectionStatus, Message, Persona, UserProfile } from './types';
 import { encode, decode, decodeAudioData, createBlob } from './utils/audio';
 
-// High-quality cinematic anime character image
-const MAHIRU_IMAGE_URL = "https://images.unsplash.com/photo-1594051030040-0232420a324b?q=80&w=1000&auto=format&fit=crop"; 
+// High-quality cinematic anime character image (Updated to match the user's provided pfp style)
+const MAHIRU_IMAGE_URL = "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=1000&auto=format&fit=crop"; 
 
 const PERSONA_CONFIG: Record<Persona, { color: string; posture: string; aura: string }> = {
   'Friend': { color: 'from-blue-500 to-indigo-600', posture: 'posture-friend', aura: 'rgba(59, 130, 246, 0.4)' },
@@ -403,15 +403,53 @@ const App: React.FC = () => {
         </div>
       )}
 
-      {/* Settings Modal - Quick hack to add settings back if needed or just leave placeholder */}
+      {/* Settings Modal */}
       {showSettings && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-3xl animate-in fade-in duration-500">
-           <div className="glass-panel w-full max-w-xl rounded-[60px] p-16 text-center space-y-12">
-              <h2 className="text-4xl font-black text-pink-500 italic glow-text">Settings</h2>
-              <div className="space-y-6">
-                <p className="text-gray-400">Settings functionality coming soon...</p>
-                <button onClick={() => setShowSettings(false)} className="px-12 py-4 bg-pink-500 text-white rounded-full font-black uppercase tracking-widest">Close</button>
+           <div className="glass-panel w-full max-w-xl rounded-[40px] sm:rounded-[60px] p-8 sm:p-16 text-center space-y-10 border-pink-500/30">
+              <h2 className="text-4xl sm:text-6xl font-black text-pink-500 italic glow-text tracking-tighter">Preferences</h2>
+              
+              <div className="space-y-8 text-left">
+                <div className="space-y-3">
+                  <label className="text-[10px] font-black uppercase tracking-[0.5em] text-gray-500 ml-4">Your Name</label>
+                  <input 
+                    type="text" 
+                    value={userProfile?.name} 
+                    onChange={(e) => updateProfile({ name: e.target.value })}
+                    className="w-full bg-white/5 border border-white/10 rounded-full py-4 px-8 text-white focus:border-pink-500 outline-none transition-all"
+                  />
+                </div>
+
+                <div className="space-y-3">
+                  <label className="text-[10px] font-black uppercase tracking-[0.5em] text-gray-500 ml-4">Language</label>
+                  <div className="flex gap-4">
+                    {['hindi', 'english'].map(lang => (
+                      <button 
+                        key={lang}
+                        onClick={() => updateProfile({ language: lang as any })}
+                        className={`flex-1 py-4 rounded-full font-black uppercase tracking-widest text-xs transition-all ${userProfile?.language === lang ? 'bg-pink-500 text-white' : 'bg-white/5 text-gray-400 hover:bg-white/10'}`}
+                      >
+                        {lang}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  <label className="text-[10px] font-black uppercase tracking-[0.5em] text-gray-500 ml-4">Voice Type</label>
+                  <select 
+                    value={userProfile?.voice}
+                    onChange={(e) => updateProfile({ voice: e.target.value })}
+                    className="w-full bg-white/5 border border-white/10 rounded-full py-4 px-8 text-white appearance-none outline-none focus:border-pink-500"
+                  >
+                    <option value="Kore" className="bg-black">Kore (Standard)</option>
+                    <option value="Aoede" className="bg-black">Aoede (Soft)</option>
+                    <option value="Charon" className="bg-black">Charon (Male)</option>
+                  </select>
+                </div>
               </div>
+
+              <button onClick={() => setShowSettings(false)} className="w-full py-6 bg-pink-500 text-white rounded-full font-black uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-2xl">Save Changes</button>
            </div>
         </div>
       )}
